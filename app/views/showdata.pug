@@ -1,0 +1,75 @@
+extends layout
+
+block content
+    h1 Showing #{name} from #{from} to #{to}
+    div
+        p Showing data from #{time}
+            div
+                canvas#myChart(width='400', height='400')
+
+    #tgtest.tg
+        p#tgtext Here is some text
+        button Click
+
+    script(src="/javascripts/charts.js")
+    script(src="/javascripts/jquery-3.2.1.js")
+     //script(src="/javascripts/temp_chart.js")
+    script.
+        var ctx = document.getElementById("myChart");
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data:{
+                datasets: [{
+                    label: '#{name}',
+                    data: null ,
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor:'rgba(255,99,132,1)',
+                    borderWidth: 1
+                    }]
+                },
+            options: { 
+                scales: { 
+                    xAxes: [{
+                        type: 'time',time: { 
+                        displayFormats: {
+                            second: 'mm:ss',
+                            minute: 'HH:mm',
+                            hour: 'DD/MM HH'}}
+                        }],
+                    yAxes: [{
+                        ticks: {beginAtZero:false}
+                }]}
+            }
+        });
+
+        function getAllData(t) {
+        $(function(){
+        var u = '/data/#{name}/#{from}/#{to}';
+        //if (t != '')
+        //u = '/temp/tempdatafrom/'+t;
+        $.ajax({url: u,
+        type: 'GET',
+        success : function(data) {
+        myChart.data.datasets[0].data = data;
+        myChart.update();;}});
+        });}
+        function getData() {
+        $(function(){
+        var u = '/data/read/#{name}/#{from}/#{to}';
+        //if (t != '')
+        //u = '/temp/tempdatafrom/'+t;
+        $.ajax({url: u,
+        type: 'GET',
+        success : function(data) {
+        myChart.data.datasets[0].data = data;
+        myChart.update();;}});
+        });}
+    script getData()
+    script.
+        $(document).ready(function(){
+            var p = $("#tgtest");
+            $("button").click(function(){
+                p.hide();
+            });
+        });
+

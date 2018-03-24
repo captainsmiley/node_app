@@ -1,0 +1,22 @@
+{
+  "name": "application-name",
+  "version": "0.0.1",
+  "private": true,
+  "main": "server.js",
+  "scripts": {
+    "start": "nodejs server.js"
+  },
+  "dependencies": {
+    "body-parser": "*",
+    "cookie-parser": "*",
+    "debug": "*",
+    "express": "*",
+    "pug": "*",
+    "morgan": "*",
+    "mysql": "*",
+    "static-favicon": "*",
+    "redis": "*",
+    "node-nmap": "*",
+    "async":"*"
+  }
+}
