@@ -3,5 +3,24 @@ extends layout
 
 block content
   h1 tgtest redis
-  
+    
   p id = #{id}
+  
+  div( ng-app="myApp" ng-controller="myCtrl")
+    p Name: 
+      input(type="text" ng-model="name") 
+    p(ng-bind="name") 
+    
+    button(ng-click="runScan()") Start scan
+    
+    p Scan status: {{scan_status}}
+    
+    
+    li(ng_repeat="x in scan_data")   
+      ui {{x.ip}} {{x.openPorts}} {{x.hostname}}
+      
+    
+    
+    
+    
+  

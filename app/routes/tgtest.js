@@ -26,6 +26,10 @@ router.get('/set/', function(req, res) {
   res.render('tgtest', { title: 'tgtest' });
 });
 
+router.get("/get/" ,function(req,res) {
+  res.send("tgtest get");
+});
+
 router.get('/scan_result/',function(req,res) {
   if (scan_data)
   {
@@ -39,10 +43,14 @@ router.get('/scan_result/',function(req,res) {
     res.render('tgtest', { title: 'tgtest' });
 });
 
+router.get('/get_scan_result/', function(req,res) {
+  res.json(scan_data);
+});
+
 
 router.get('/scan/',function(req,res) {
 
-  var scan = new nmap.NmapScan('192.168.0.1-100',['-p 80']);
+  var scan = new nmap.NmapScan('171.17.78.22',['-p 80']);
   scan.on('complete', function(data) {
     scan_data = data;
   });
@@ -50,7 +58,7 @@ router.get('/scan/',function(req,res) {
     console.log(error);
   });
   scan.startScan();
-  res.redirect('/');
+  res.redirect('/tgtest/');
   //res.render('tgtest', { title: 'tgtest' });
 });
 
